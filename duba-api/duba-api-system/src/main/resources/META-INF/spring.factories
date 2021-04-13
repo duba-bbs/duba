@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.tingyu.duba.system.api.factory.RemoteUserFallbackFactory,\
+  com.tingyu.duba.system.api.factory.RemoteLogFallbackFactory

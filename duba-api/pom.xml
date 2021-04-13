@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.tingyu.duba</groupId>
+        <artifactId>duba</artifactId>
+        <version>0.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>duba-api-system</module>
+    </modules>
+
+    <artifactId>duba-api</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        duba-api系统接口
+    </description>
+
+</project>

@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.tingyu.duba.common.security.service.TokenService,\
+  com.tingyu.duba.common.security.aspect.PreAuthorizeAspect,\
+  com.tingyu.duba.common.security.handler.GlobalExceptionHandler
