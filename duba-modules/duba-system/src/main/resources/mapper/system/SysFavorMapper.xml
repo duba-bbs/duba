@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tingyu.duba.system.mapper.SysFavorMapper">
+    
+    <resultMap type="SysFavor" id="SysFavorResult">
+        <result property="favorId"    column="favor_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="favorTargetId"    column="favor_target_id"    />
+        <result property="favorTargetType"    column="favor_target_type"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysFavorVo">
+        select favor_id, user_id, favor_target_id, favor_target_type, create_by, update_by, create_time, update_time, del_flag from sys_favor
+    </sql>
+
+    <select id="selectSysFavorList" parameterType="SysFavor" resultMap="SysFavorResult">
+        <include refid="selectSysFavorVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="favorTargetId != null "> and favor_target_id = #{favorTargetId}</if>
+            <if test="favorTargetType != null  and favorTargetType != ''"> and favor_target_type = #{favorTargetType}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysFavorById" parameterType="Long" resultMap="SysFavorResult">
+        <include refid="selectSysFavorVo"/>
+        where favor_id = #{favorId}
+    </select>
+        
+    <insert id="insertSysFavor" parameterType="SysFavor" useGeneratedKeys="true" keyProperty="favorId">
+        insert into sys_favor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="favorTargetId != null">favor_target_id,</if>
+            <if test="favorTargetType != null and favorTargetType != ''">favor_target_type,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="favorTargetId != null">#{favorTargetId},</if>
+            <if test="favorTargetType != null and favorTargetType != ''">#{favorTargetType},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysFavor" parameterType="SysFavor">
+        update sys_favor
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="favorTargetId != null">favor_target_id = #{favorTargetId},</if>
+            <if test="favorTargetType != null and favorTargetType != ''">favor_target_type = #{favorTargetType},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+        </trim>
+        where favor_id = #{favorId}
+    </update>
+
+    <delete id="deleteSysFavorById" parameterType="Long">
+        delete from sys_favor where favor_id = #{favorId}
+    </delete>
+
+    <delete id="deleteSysFavorByIds" parameterType="String">
+        delete from sys_favor where favor_id in 
+        <foreach item="favorId" collection="array" open="(" separator="," close=")">
+            #{favorId}
+        </foreach>
+    </delete>
+</mapper>

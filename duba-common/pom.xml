@@ -9,13 +9,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
-        <!-- <module>duba-common-log</module> -->
+        <module>duba-common-log</module>
         <module>duba-common-core</module>
         <module>duba-common-redis</module>
-        <!-- <module>duba-common-swagger</module> -->
+        <module>duba-common-swagger</module>
         <module>duba-common-security</module>
-        <!-- <module>duba-common-datascope</module> -->
-		<!-- <module>duba-common-datasource</module> -->
+        <module>duba-common-datascope</module>
+		<module>duba-common-datasource</module>
     </modules>
 
     <artifactId>duba-common</artifactId>

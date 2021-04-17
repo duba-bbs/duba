@@ -22,7 +22,7 @@ public class SysOperLog extends BaseEntity {
 
     /** 操作类型（0其它 1新增 2修改 3删除） */
     @Excel(name = "操作类型", readConverterExp = "0=其它,1=新增,2=修改,3=删除")
-    private String operatorType;
+    private String operType;
 
     /** 方法名称 */
     @Excel(name = "方法名称")
@@ -34,7 +34,7 @@ public class SysOperLog extends BaseEntity {
 
     /** 操作来源（0其它 1后台用户 2手机端用户 3PC端用户） */
     @Excel(name = "操作来源", readConverterExp = "0=其它,1=后台用户,2=手机端用户,3=PC端用户")
-    private String operatorSource;
+    private String operSource;
 
     /** 操作人员 */
     @Excel(name = "操作人员")
@@ -89,12 +89,12 @@ public class SysOperLog extends BaseEntity {
         return title;
     }
 
-    public void setOperatorType(String operatorType) {
-        this.operatorType = operatorType;
+    public void setOperType(String operType) {
+        this.operType = operType;
     }
 
-    public String getOperatorType() {
-        return operatorType;
+    public String getOperType() {
+        return operType;
     }
 
     public void setMethod(String method) {
@@ -113,12 +113,12 @@ public class SysOperLog extends BaseEntity {
         return requestMethod;
     }
 
-    public void setOperatorSource(String operatorSource) {
-        this.operatorSource = operatorSource;
+    public void setOperSource(String operSource) {
+        this.operSource = operSource;
     }
 
-    public String getOperatorSource() {
-        return operatorSource;
+    public String getOperSource() {
+        return operSource;
     }
 
     public void setOperName(String operName) {
@@ -196,8 +196,8 @@ public class SysOperLog extends BaseEntity {
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("operId", getOperId())
-                .append("title", getTitle()).append("operatorType", getOperatorType()).append("method", getMethod())
-                .append("requestMethod", getRequestMethod()).append("operatorSource", getOperatorSource())
+                .append("title", getTitle()).append("operType", getOperType()).append("method", getMethod())
+                .append("requestMethod", getRequestMethod()).append("operSource", getOperSource())
                 .append("operName", getOperName()).append("operUrl", getOperUrl()).append("operIp", getOperIp())
                 .append("operLocation", getOperLocation()).append("operParam", getOperParam())
                 .append("jsonResult", getJsonResult()).append("status", getStatus()).append("errorMsg", getErrorMsg())

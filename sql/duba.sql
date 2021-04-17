@@ -28,9 +28,11 @@ create table `sys_user` (
 	`del_flag` char (1) not null default '0' comment '逻辑删除（1代表已删除 0代表未删除）',
 	primary key (`user_id`),
 	unique (`username`),
-	key `idx_user_name` (`username`)
+	key `idx_username` (`username`)
 ) engine = innodb auto_increment = 1000 default charset = utf8mb4 comment = '用户信息表';
 
+INSERT INTO sys_user VALUES ( NULL, 'admin', 'admin', '0', '1214327383@qq.com', '', '11223344556', '0', '', 'admin', sysdate(), '', '0', 'admin', 'admin', sysdate(), sysdate(), sysdate(), '', '', '0' );
+INSERT INTO sys_user VALUES ( NULL, 'duba', 'duba', '0', '1214327383@qq.com', '', '11223344556', '0', '', '123456', sysdate(), '', '0', 'admin', 'admin', sysdate(), sysdate(), sysdate(), '', '', '0' );
 -- ----------------------------
 -- 角色信息表
 -- ----------------------------
@@ -51,8 +53,12 @@ create table `sys_role` (
 	`remark` varchar (500) not null default '' comment '备注',
 	`del_flag` char (1) not null default '0' comment '逻辑删除（1代表已删除 0代表未删除）',
 	primary key (`role_id`),
-	key `idx_role_name` (`role_name`)
+	key `idx_role_key` (`role_key`),
+	unique (`role_key`)
 ) engine = innodb auto_increment = 1000 default charset = utf8mb4 comment = '用户信息表';
+
+INSERT INTO sys_role VALUES ( NULL, '超级管理员', 'admin', 1, '1', '0', 'admin', 'admin', sysdate(), sysdate(), '超级管理员', '0' );
+INSERT INTO sys_role VALUES ( NULL, '普通角色', 'common', 2, '2', '0', 'admin', 'admin', sysdate(), sysdate(), '普通角色', '0' );
 
 -- ----------------------------
 -- 用户和角色关联表 用户n-1角色
@@ -66,6 +72,9 @@ create table `sys_user_role` (
 	`role_id` bigint (20) not null comment '角色id',
 	primary key (`id`)
 ) engine = innodb auto_increment = 1000 default charset = utf8mb4 comment = '用户和角色关联表';
+
+INSERT INTO sys_user_role VALUES (null, 1000, 1000);
+INSERT INTO sys_user_role VALUES (null, 1001, 1001);
 
 -- ----------------------------
 -- 菜单权限表
@@ -81,7 +90,7 @@ create table `sys_menu` (
 	`path` varchar (200) not null default '' comment '路由地址',
 	`component` varchar (255) not null default '' comment '组件路径',
 	`is_frame` char (1) not null default 'n' comment '是否为外链（y是 n否）',
-	`is_cache` char (1) not null default 'n' comment '是否缓存（y缓存 n不缓存）',
+	`is_cache` char (1) not null default 'y' comment '是否缓存（y缓存 n不缓存）',
 	`menu_type` char (1) not null default '0' comment '菜单类型（0目录 1菜单 2按钮）',
 	`visible` char (1) not null default '0' comment '菜单状态（0显示 1隐藏）',
 	`status` char (1) not null default '0' comment '菜单状态（0正常 1停用）',
@@ -95,6 +104,17 @@ create table `sys_menu` (
 	primary key (`menu_id`)
 ) engine = innodb auto_increment = 1000 default charset = utf8mb4 comment = '菜单权限表';
 
+INSERT INTO sys_menu VALUES ( 1001, '用户管理', 0, 1, 'user', 'system/user/index', 'n', 'y', '1', '0', '0', 'system:user:list', 'user', 'admin', 'admin', sysdate(), sysdate(), '用户管理菜单' );
+INSERT INTO sys_menu VALUES ( 1002, '文章管理', 0, 2, 'article', '', 'n', 'y', '1', '0', '0', '', 'article', 'admin', 'admin', sysdate(), sysdate(), '文章管理菜单' );
+INSERT INTO sys_menu VALUES ( 1101, '系统公告', 1002, 1, 'notice', 'system/notice/index', 'n', 'y', '1', '0', '0', 'system:notice:list', 'message', 'admin', 'admin', sysdate(), sysdate(), '通知公告菜单' );
+INSERT INTO sys_menu VALUES ( 2001, '用户查询', 1001, 1, '', '', 'n', 'y', '2', '0', '0', 'system:user:query', '#', 'admin', 'admin', sysdate(), sysdate(), '' );
+INSERT INTO sys_menu VALUES ( 2002, '用户新增', 1001, 2, '', '', 'n', 'y', '2', '0', '0', 'system:user:add', '#', 'admin', 'admin', sysdate(), sysdate(), '' );
+INSERT INTO sys_menu VALUES ( 2003, '用户修改', 1001, 3, '', '', 'n', 'y', '2', '0', '0', 'system:user:edit', '#', 'admin', 'admin', sysdate(), sysdate(), '' );
+INSERT INTO sys_menu VALUES ( 2004, '用户删除', 1001, 4, '', '', 'n', 'y', '2', '0', '0', 'system:user:remove', '#', 'admin', 'admin', sysdate(), sysdate(), '' );
+INSERT INTO sys_menu VALUES ( 2005, '用户导出', 1001, 5, '', '', 'n', 'y', '2', '0', '0', 'system:user:export', '#', 'admin', 'admin', sysdate(), sysdate(), '' );
+INSERT INTO sys_menu VALUES ( 2006, '重置密码', 1001, 6, '', '', 'n', 'y', '2', '0', '0', 'system:user:resetPwd', '#', 'admin', 'admin', sysdate(), sysdate(), '' );
+INSERT INTO sys_menu VALUES ( 2007, '公告查询', 1101, 1, '', '', 'n', 'y', '2', '0', '0', 'system:notice:query', '#', 'admin', 'admin', sysdate(), sysdate(), '' );
+
 -- ----------------------------
 -- 角色和菜单关联表  角色1-n菜单
 -- ----------------------------
@@ -107,6 +127,9 @@ create table `sys_role_menu` (
 	`menu_id` bigint (20) not null comment '菜单id',
 	primary key (`id`)
 ) engine = innodb auto_increment = 1000 default charset = utf8mb4 comment = '角色和菜单关联表';
+
+insert into sys_role_menu values (null, 1001, 1002);
+insert into sys_role_menu values (null, 1001, 1101);
 
 -- ----------------------------
 -- 吧表
@@ -277,7 +300,7 @@ create table `sys_dict_data` (
 	`css_class` varchar (100) not null default '' comment '样式属性（其他样式扩展）',
 	`list_class` varchar (100) not null default '' comment '表格回显样式',
 	`status` char (1) not null default '0' comment '状态（0正常 1停用）',
-	`default` char (1) not null default '0' comment '是否默认（1是 0否）',
+	`default_flag` char (1) not null default '0' comment '是否默认（1是 0否）',
 	`create_by` varchar (30) not null default '' comment '创建者',
 	`update_by` varchar (30) not null default '' comment '更新者',
 	`create_time` datetime not null comment '创建时间',
@@ -313,10 +336,10 @@ if exists `sys_oper_log`;
 create table `sys_oper_log` (
 	`oper_id` bigint (20) not null auto_increment comment '主键',
 	`title` varchar (50) not null default '' comment '模块标题',
-	`operator_type` char (1) not null default '0' comment '操作类型（0其它 1新增 2修改 3删除）',
+	`oper_type` char (1) not null default '0' comment '操作类型（0其它 1新增 2修改 3删除）',
 	`method` varchar (100) not null default '' comment '方法名称',
 	`request_method` varchar (10) not null default '' comment '请求方式',
-	`operator_source` char (1) not null default '0' comment '操作来源（0其它 1后台用户 2手机端用户 3PC端用户）',
+	`oper_source` char (1) not null default '0' comment '操作来源（0其它 1后台用户 2手机端用户 3PC端用户）',
 	`oper_name` varchar (50) not null default '' comment '操作人员',
 	`oper_url` varchar (255) not null default '' comment '请求url',
 	`oper_ip` varchar (128) not null default '' comment '主机地址',

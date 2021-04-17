@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
-        <!-- <module>duba-system</module> -->
+        <module>duba-system</module>
         <!-- <module>duba-gen</module> -->
         <!-- <module>duba-job</module> -->
         <!-- <module>duba-file</module> -->

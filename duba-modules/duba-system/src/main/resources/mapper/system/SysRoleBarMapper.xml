@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tingyu.duba.system.mapper.SysRoleBarMapper">
+    
+    <resultMap type="SysRoleBar" id="SysRoleBarResult">
+        <result property="id"    column="id"    />
+        <result property="roleId"    column="role_id"    />
+        <result property="barId"    column="bar_id"    />
+    </resultMap>
+
+    <sql id="selectSysRoleBarVo">
+        select id, role_id, bar_id from sys_role_bar
+    </sql>
+
+    <select id="selectSysRoleBarList" parameterType="SysRoleBar" resultMap="SysRoleBarResult">
+        <include refid="selectSysRoleBarVo"/>
+        <where>  
+            <if test="roleId != null "> and role_id = #{roleId}</if>
+            <if test="barId != null "> and bar_id = #{barId}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysRoleBarById" parameterType="Long" resultMap="SysRoleBarResult">
+        <include refid="selectSysRoleBarVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysRoleBar" parameterType="SysRoleBar" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_role_bar
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">role_id,</if>
+            <if test="barId != null">bar_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">#{roleId},</if>
+            <if test="barId != null">#{barId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysRoleBar" parameterType="SysRoleBar">
+        update sys_role_bar
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="roleId != null">role_id = #{roleId},</if>
+            <if test="barId != null">bar_id = #{barId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysRoleBarById" parameterType="Long">
+        delete from sys_role_bar where id = #{id}
+    </delete>
+
+    <delete id="deleteSysRoleBarByIds" parameterType="String">
+        delete from sys_role_bar where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

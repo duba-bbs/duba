@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tingyu.duba.system.mapper.SysUserRelMapper">
+    
+    <resultMap type="SysUserRel" id="SysUserRelResult">
+        <result property="id"    column="id"    />
+        <result property="fromId"    column="from_id"    />
+        <result property="toId"    column="to_id"    />
+        <result property="relType"    column="rel_type"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSysUserRelVo">
+        select id, from_id, to_id, rel_type, create_by, update_by, create_time, update_time, del_flag from sys_user_rel
+    </sql>
+
+    <select id="selectSysUserRelList" parameterType="SysUserRel" resultMap="SysUserRelResult">
+        <include refid="selectSysUserRelVo"/>
+        <where>  
+            <if test="fromId != null "> and from_id = #{fromId}</if>
+            <if test="toId != null "> and to_id = #{toId}</if>
+            <if test="relType != null  and relType != ''"> and rel_type = #{relType}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysUserRelById" parameterType="Long" resultMap="SysUserRelResult">
+        <include refid="selectSysUserRelVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysUserRel" parameterType="SysUserRel" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user_rel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fromId != null">from_id,</if>
+            <if test="toId != null">to_id,</if>
+            <if test="relType != null and relType != ''">rel_type,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fromId != null">#{fromId},</if>
+            <if test="toId != null">#{toId},</if>
+            <if test="relType != null and relType != ''">#{relType},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysUserRel" parameterType="SysUserRel">
+        update sys_user_rel
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fromId != null">from_id = #{fromId},</if>
+            <if test="toId != null">to_id = #{toId},</if>
+            <if test="relType != null and relType != ''">rel_type = #{relType},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysUserRelById" parameterType="Long">
+        delete from sys_user_rel where id = #{id}
+    </delete>
+
+    <delete id="deleteSysUserRelByIds" parameterType="String">
+        delete from sys_user_rel where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

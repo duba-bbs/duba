@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tingyu.duba.system.mapper.SysOperLogMapper">
+    
+    <resultMap type="SysOperLog" id="SysOperLogResult">
+        <result property="operId"    column="oper_id"    />
+        <result property="title"    column="title"    />
+        <result property="operType"    column="oper_type"    />
+        <result property="method"    column="method"    />
+        <result property="requestMethod"    column="request_method"    />
+        <result property="operSource"    column="oper_source"    />
+        <result property="operName"    column="oper_name"    />
+        <result property="operUrl"    column="oper_url"    />
+        <result property="operIp"    column="oper_ip"    />
+        <result property="operLocation"    column="oper_location"    />
+        <result property="operParam"    column="oper_param"    />
+        <result property="jsonResult"    column="json_result"    />
+        <result property="status"    column="status"    />
+        <result property="errorMsg"    column="error_msg"    />
+        <result property="operTime"    column="oper_time"    />
+    </resultMap>
+
+    <sql id="selectSysOperLogVo">
+        select oper_id, title, oper_type, method, request_method, oper_source, oper_name, oper_url, oper_ip, oper_location, oper_param, json_result, status, error_msg, oper_time from sys_oper_log
+    </sql>
+
+    <select id="selectSysOperLogList" parameterType="SysOperLog" resultMap="SysOperLogResult">
+        <include refid="selectSysOperLogVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="operType != null  and operType != ''"> and oper_type = #{operType}</if>
+            <if test="method != null  and method != ''"> and method = #{method}</if>
+            <if test="requestMethod != null  and requestMethod != ''"> and request_method = #{requestMethod}</if>
+            <if test="operSource != null  and operSource != ''"> and oper_source = #{operSource}</if>
+            <if test="operName != null  and operName != ''"> and oper_name like concat('%', #{operName}, '%')</if>
+            <if test="operUrl != null  and operUrl != ''"> and oper_url = #{operUrl}</if>
+            <if test="operIp != null  and operIp != ''"> and oper_ip = #{operIp}</if>
+            <if test="operLocation != null  and operLocation != ''"> and oper_location = #{operLocation}</if>
+            <if test="operParam != null  and operParam != ''"> and oper_param = #{operParam}</if>
+            <if test="jsonResult != null  and jsonResult != ''"> and json_result = #{jsonResult}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="errorMsg != null  and errorMsg != ''"> and error_msg = #{errorMsg}</if>
+            <if test="operTime != null "> and oper_time = #{operTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysOperLogById" parameterType="Long" resultMap="SysOperLogResult">
+        <include refid="selectSysOperLogVo"/>
+        where oper_id = #{operId}
+    </select>
+        
+    <insert id="insertSysOperLog" parameterType="SysOperLog" useGeneratedKeys="true" keyProperty="operId">
+        insert into sys_oper_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">title,</if>
+            <if test="operType != null and operType != ''">oper_type,</if>
+            <if test="method != null and method != ''">method,</if>
+            <if test="requestMethod != null and requestMethod != ''">request_method,</if>
+            <if test="operSource != null and operSource != ''">oper_source,</if>
+            <if test="operName != null and operName != ''">oper_name,</if>
+            <if test="operUrl != null and operUrl != ''">oper_url,</if>
+            <if test="operIp != null and operIp != ''">oper_ip,</if>
+            <if test="operLocation != null and operLocation != ''">oper_location,</if>
+            <if test="operParam != null and operParam != ''">oper_param,</if>
+            <if test="jsonResult != null and jsonResult != ''">json_result,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="errorMsg != null and errorMsg != ''">error_msg,</if>
+            <if test="operTime != null">oper_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="operType != null and operType != ''">#{operType},</if>
+            <if test="method != null and method != ''">#{method},</if>
+            <if test="requestMethod != null and requestMethod != ''">#{requestMethod},</if>
+            <if test="operSource != null and operSource != ''">#{operSource},</if>
+            <if test="operName != null and operName != ''">#{operName},</if>
+            <if test="operUrl != null and operUrl != ''">#{operUrl},</if>
+            <if test="operIp != null and operIp != ''">#{operIp},</if>
+            <if test="operLocation != null and operLocation != ''">#{operLocation},</if>
+            <if test="operParam != null and operParam != ''">#{operParam},</if>
+            <if test="jsonResult != null and jsonResult != ''">#{jsonResult},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="errorMsg != null and errorMsg != ''">#{errorMsg},</if>
+            <if test="operTime != null">#{operTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysOperLog" parameterType="SysOperLog">
+        update sys_oper_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="operType != null and operType != ''">oper_type = #{operType},</if>
+            <if test="method != null and method != ''">method = #{method},</if>
+            <if test="requestMethod != null and requestMethod != ''">request_method = #{requestMethod},</if>
+            <if test="operSource != null and operSource != ''">oper_source = #{operSource},</if>
+            <if test="operName != null and operName != ''">oper_name = #{operName},</if>
+            <if test="operUrl != null and operUrl != ''">oper_url = #{operUrl},</if>
+            <if test="operIp != null and operIp != ''">oper_ip = #{operIp},</if>
+            <if test="operLocation != null and operLocation != ''">oper_location = #{operLocation},</if>
+            <if test="operParam != null and operParam != ''">oper_param = #{operParam},</if>
+            <if test="jsonResult != null and jsonResult != ''">json_result = #{jsonResult},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="errorMsg != null and errorMsg != ''">error_msg = #{errorMsg},</if>
+            <if test="operTime != null">oper_time = #{operTime},</if>
+        </trim>
+        where oper_id = #{operId}
+    </update>
+
+    <delete id="deleteSysOperLogById" parameterType="Long">
+        delete from sys_oper_log where oper_id = #{operId}
+    </delete>
+
+    <delete id="deleteSysOperLogByIds" parameterType="String">
+        delete from sys_oper_log where oper_id in 
+        <foreach item="operId" collection="array" open="(" separator="," close=")">
+            #{operId}
+        </foreach>
+    </delete>
+</mapper>
