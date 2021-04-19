@@ -10,9 +10,9 @@
 
     <modules>
         <module>duba-system</module>
-        <!-- <module>duba-gen</module> -->
-        <!-- <module>duba-job</module> -->
-        <!-- <module>duba-file</module> -->
+        <module>duba-gen</module>
+        <module>duba-job</module>
+        <module>duba-file</module>
     </modules>
 
     <artifactId>duba-modules</artifactId>

@@ -26,7 +26,7 @@ import com.tingyu.duba.common.core.web.page.TableDataInfo;
  * 角色和吧关联Controller
  */
 @RestController
-@RequestMapping("/bar")
+@RequestMapping("/rolebar")
 public class SysRoleBarController extends BaseController {
     @Autowired
     private ISysRoleBarService sysRoleBarService;

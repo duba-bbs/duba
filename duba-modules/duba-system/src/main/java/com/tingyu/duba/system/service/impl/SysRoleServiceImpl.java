@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.tingyu.duba.common.core.utils.StringUtils;
-import com.tingyu.duba.system.domain.SysRole;
+import com.tingyu.duba.system.api.domain.SysRole;
 import com.tingyu.duba.system.mapper.SysRoleMapper;
 import com.tingyu.duba.system.service.ISysRoleService;
 

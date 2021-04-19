@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 操作日志记录Controller
  */
 @RestController
-@RequestMapping("/log")
+@RequestMapping("/operlog")
 public class SysOperLogController extends BaseController {
     @Autowired
     private ISysOperLogService sysOperLogService;

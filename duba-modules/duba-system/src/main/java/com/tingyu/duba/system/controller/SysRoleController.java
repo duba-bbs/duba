@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tingyu.duba.common.log.annotation.Log;
 import com.tingyu.duba.common.log.enums.OperType;
 import com.tingyu.duba.common.security.annotation.PreAuthorize;
-import com.tingyu.duba.system.domain.SysRole;
+import com.tingyu.duba.system.api.domain.SysRole;
 import com.tingyu.duba.system.service.ISysRoleService;
 import com.tingyu.duba.common.core.web.controller.BaseController;
 import com.tingyu.duba.common.core.web.domain.AjaxResult;

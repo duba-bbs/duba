@@ -26,7 +26,7 @@ import com.tingyu.duba.common.core.web.page.TableDataInfo;
  * 字典类型Controller
  */
 @RestController
-@RequestMapping("/type")
+@RequestMapping("/dicttype")
 public class SysDictTypeController extends BaseController {
     @Autowired
     private ISysDictTypeService sysDictTypeService;

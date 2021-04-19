@@ -26,7 +26,7 @@ import com.tingyu.duba.common.core.web.page.TableDataInfo;
  * 吧主Controller
  */
 @RestController
-@RequestMapping("/owner")
+@RequestMapping("/barowner")
 public class SysBarOwnerController extends BaseController {
     @Autowired
     private ISysBarOwnerService sysBarOwnerService;

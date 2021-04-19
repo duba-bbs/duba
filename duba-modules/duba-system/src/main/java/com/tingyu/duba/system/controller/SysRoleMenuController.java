@@ -26,7 +26,7 @@ import com.tingyu.duba.common.core.web.page.TableDataInfo;
  * 角色和菜单关联Controller
  */
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/rolemenu")
 public class SysRoleMenuController extends BaseController {
     @Autowired
     private ISysRoleMenuService sysRoleMenuService;

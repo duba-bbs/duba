@@ -1,7 +1,8 @@
 package com.tingyu.duba.system.mapper;
 
 import java.util.List;
-import com.tingyu.duba.system.domain.SysRole;
+
+import com.tingyu.duba.system.api.domain.SysRole;
 
 /**
  * 用户信息Mapper接口

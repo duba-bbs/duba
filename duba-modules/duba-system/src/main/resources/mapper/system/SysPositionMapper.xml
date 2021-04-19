@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tingyu.duba.system.mapper.SysPositionMapper">
+
+	<resultMap type="SysPosition" id="SysPositionResult">
+		<id     property="positionId"        column="position_id"       />
+		<result property="positionCode"      column="position_code"     />
+		<result property="positionName"      column="position_name"     />
+		<result property="positionSort"      column="position_sort"     />
+		<result property="status"        column="status"        />
+		<result property="createBy"      column="create_by"     />
+		<result property="createTime"    column="create_time"   />
+		<result property="updateBy"      column="update_by"     />
+		<result property="updateTime"    column="update_time"   />
+		<result property="remark"        column="remark"        />
+	</resultMap>
+	
+	<sql id="selectPositionVo">
+        select position_id, position_code, position_name, position_sort, status, create_by, create_time, remark 
+		from sys_position
+    </sql>
+	
+	<select id="selectPositionList" parameterType="SysPosition" resultMap="SysPositionResult">
+	    <include refid="selectPositionVo"/>
+		<where>
+			<if test="positionCode != null and positionCode != ''">
+				AND position_code like concat('%', #{positionCode}, '%')
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status}
+			</if>
+			<if test="positionName != null and positionName != ''">
+				AND position_name like concat('%', #{positionName}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectPositionAll" resultMap="SysPositionResult">
+		<include refid="selectPositionVo"/>
+	</select>
+	
+	<select id="selectPositionById" parameterType="Long" resultMap="SysPositionResult">
+		<include refid="selectPositionVo"/>
+		where position_id = #{positionId}
+	</select>
+	
+	<select id="selectPositionListByUserId" parameterType="Long" resultType="Integer">
+		select p.position_id
+        from sys_position p
+	        left join sys_user_position up on up.position_id = p.position_id
+	        left join sys_user u on u.user_id = up.user_id
+	    where u.user_id = #{userId}
+	</select>
+	
+	<select id="selectPositionsByUserName" parameterType="String" resultMap="SysPositionResult">
+		select p.position_id, p.position_name, p.position_code
+		from sys_position p
+			 left join sys_user_position up on up.position_id = p.position_id
+			 left join sys_user u on u.user_id = up.user_id
+		where u.user_name = #{userName}
+	</select>
+	
+	<select id="checkPositionNameUnique" parameterType="String" resultMap="SysPositionResult">
+		<include refid="selectPositionVo"/>
+		 where position_name=#{positionName} limit 1
+	</select>
+	
+	<select id="checkPositionCodeUnique" parameterType="String" resultMap="SysPositionResult">
+		<include refid="selectPositionVo"/>
+		 where position_code=#{positionCode} limit 1
+	</select>
+	
+	<update id="updatePosition" parameterType="SysPosition">
+ 		update sys_position
+ 		<set>
+ 			<if test="positionCode != null and positionCode != ''">position_code = #{positionCode},</if>
+ 			<if test="positionName != null and positionName != ''">position_name = #{positionName},</if>
+ 			<if test="positionSort != null and positionSort != ''">position_sort = #{positionSort},</if>
+ 			<if test="status != null and status != ''">status = #{status},</if>
+ 			<if test="remark != null">remark = #{remark},</if>
+ 			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+ 			update_time = sysdate()
+ 		</set>
+ 		where position_id = #{positionId}
+	</update>
+ 	
+ 	<insert id="insertPosition" parameterType="SysPosition" useGeneratedKeys="true" keyProperty="positionId">
+ 		insert into sys_position(
+ 			<if test="positionId != null and positionId != 0">position_id,</if>
+ 			<if test="positionCode != null and positionCode != ''">position_code,</if>
+ 			<if test="positionName != null and positionName != ''">position_name,</if>
+ 			<if test="positionSort != null and positionSort != ''">position_sort,</if>
+ 			<if test="status != null and status != ''">status,</if>
+ 			<if test="remark != null and remark != ''">remark,</if>
+ 			<if test="createBy != null and createBy != ''">create_by,</if>
+ 			create_time
+ 		)values(
+ 			<if test="positionId != null and positionId != 0">#{positionId},</if>
+ 			<if test="positionCode != null and positionCode != ''">#{positionCode},</if>
+ 			<if test="positionName != null and positionName != ''">#{positionName},</if>
+ 			<if test="positionSort != null and positionSort != ''">#{positionSort},</if>
+ 			<if test="status != null and status != ''">#{status},</if>
+ 			<if test="remark != null and remark != ''">#{remark},</if>
+ 			<if test="createBy != null and createBy != ''">#{createBy},</if>
+ 			sysdate()
+ 		)
+	</insert>
+	
+	<delete id="deletePositionById" parameterType="Long">
+		delete from sys_position where position_id = #{positionId}
+	</delete>
+	
+	<delete id="deletePositionByIds" parameterType="Long">
+ 		delete from sys_position where position_id in
+ 		<foreach collection="array" item="positionId" open="(" separator="," close=")">
+ 			#{positionId}
+        </foreach> 
+ 	</delete>
+
+</mapper> 

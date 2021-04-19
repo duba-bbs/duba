@@ -26,7 +26,7 @@ import com.tingyu.duba.common.core.web.page.TableDataInfo;
  * 字典数据Controller
  */
 @RestController
-@RequestMapping("/data")
+@RequestMapping("/dictdata")
 public class SysDictDataController extends BaseController {
     @Autowired
     private ISysDictDataService sysDictDataService;

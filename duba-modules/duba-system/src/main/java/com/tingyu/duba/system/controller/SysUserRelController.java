@@ -26,7 +26,7 @@ import com.tingyu.duba.common.core.web.page.TableDataInfo;
  * 用户关系Controller
  */
 @RestController
-@RequestMapping("/rel")
+@RequestMapping("/userrel")
 public class SysUserRelController extends BaseController {
     @Autowired
     private ISysUserRelService sysUserRelService;

@@ -26,7 +26,7 @@ import com.tingyu.duba.common.core.web.page.TableDataInfo;
  * 用户和角色关联Controller
  */
 @RestController
-@RequestMapping("/role")
+@RequestMapping("/userrole")
 public class SysUserRoleController extends BaseController {
     @Autowired
     private ISysUserRoleService sysUserRoleService;
