@@ -10,17 +10,15 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
  * 定时任务配置
  */
 @Configuration
-public class ScheduleConfig
-{
+public class ScheduleConfig {
     @Bean
-    public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource)
-    {
+    public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource) {
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
         factory.setDataSource(dataSource);
 
         // quartz参数
         Properties prop = new Properties();
-        prop.put("org.quartz.scheduler.instanceName", "RuoyiScheduler");
+        prop.put("org.quartz.scheduler.instanceName", "DubaScheduler");
         prop.put("org.quartz.scheduler.instanceId", "AUTO");
         // 线程池配置
         prop.put("org.quartz.threadPool.class", "org.quartz.simpl.SimpleThreadPool");
@@ -35,12 +33,13 @@ public class ScheduleConfig
         prop.put("org.quartz.jobStore.txIsolationLevelSerializable", "true");
 
         // sqlserver 启用
-        // prop.put("org.quartz.jobStore.selectWithLockSQL", "SELECT * FROM {0}LOCKS UPDLOCK WHERE LOCK_NAME = ?");
+        // prop.put("org.quartz.jobStore.selectWithLockSQL", "SELECT * FROM {0}LOCKS
+        // UPDLOCK WHERE LOCK_NAME = ?");
         prop.put("org.quartz.jobStore.misfireThreshold", "12000");
         prop.put("org.quartz.jobStore.tablePrefix", "QRTZ_");
         factory.setQuartzProperties(prop);
 
-        factory.setSchedulerName("RuoyiScheduler");
+        factory.setSchedulerName("DubaScheduler");
         // 延时启动
         factory.setStartupDelay(1);
         factory.setApplicationContextSchedulerContextKey("applicationContextKey");

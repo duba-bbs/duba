@@ -59,7 +59,7 @@ public class DataScopeAspect {
     private TokenService tokenService;
 
     // 配置织入点
-    @Pointcut("@annotation(com.ruoyi.common.datascope.annotation.DataScope)")
+    @Pointcut("@annotation(com.tingyu.duba.common.datascope.annotation.DataScope)")
     public void dataScopePointCut() {
     }
 
